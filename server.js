@@ -49,7 +49,6 @@ app.post('/upload', (req, res) => {
         console.log('Missing Content-Range');
         return res.status(400).json({ message: 'Missing "Content-Range" header' });
     }
-
     if (!fileId) {
         console.log('Missing File Id');
         return res.status(400).json({ message: 'Missing "X-File-Id" header' });
@@ -69,7 +68,6 @@ app.post('/upload', (req, res) => {
     if (rangeStart >= fileSize || rangeStart >= rangeEnd || rangeEnd > fileSize) {
         return res.status(400).json({ message: 'Invalid "Content-Range" provided' });
     }
-
     const busboy = new Busboy({ headers: req.headers });
 
     busboy.on('file', (_, file, fileName) => {
@@ -77,10 +75,8 @@ app.post('/upload', (req, res) => {
         if (!fileId) {
             req.pause();
         }
-        console.log('AAAAAAA');
         getFileDetails(filePath)
             .then((stats) => {
-                console.log('BBBBBB');
                 if (stats.size !== rangeStart) {
                     return res
                         .status(400)
@@ -93,8 +89,6 @@ app.post('/upload', (req, res) => {
                         console.error('failed upload', e);
                         res.sendStatus(500);
                     });
-
-                console.log('CCCCC');
             })
             .catch(err => {
                 console.log('No File Match', err);
