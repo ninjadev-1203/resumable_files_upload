@@ -1,7 +1,7 @@
-# resumable_files_upload
+# resumable_multiple_files_upload
 
 # npm install
 
 # npm start
 
-# server is listening port 1234
+# server port: 1234
